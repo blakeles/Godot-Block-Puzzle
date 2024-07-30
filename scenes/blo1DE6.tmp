@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1odxiuuhiva7"]
+
+[ext_resource type="Texture2D" uid="uid://dh4mcfyrgtiuv" path="res://assets/block_texture.png" id="1_6bp1l"]
+[ext_resource type="Script" path="res://scripts/block_data.gd" id="2_xk5s3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nr0yr"]
+size = Vector2(16, 16)
+
+[node name="Block" type="StaticBody2D"]
+input_pickable = true
+script = ExtResource("2_xk5s3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6bp1l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_nr0yr")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

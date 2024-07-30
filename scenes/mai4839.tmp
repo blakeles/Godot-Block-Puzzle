@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://byupr4b88pjmc"]
+
+[ext_resource type="Script" path="res://scripts/test_script.gd" id="1_3j4r7"]
+[ext_resource type="Script" path="res://scripts/board_manager.gd" id="2_or86s"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_3j4r7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Game Grid" type="Node2D" parent="."]
+position = Vector2(-275, -275)
+scale = Vector2(5, 5)
+script = ExtResource("2_or86s")
+
+[node name="Piece Area" type="Node2D" parent="."]
+position = Vector2(-325, -275)

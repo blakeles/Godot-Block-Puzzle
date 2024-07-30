@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://byupr4b88pjmc"]
+
+[ext_resource type="Script" path="res://scripts/board_manager.gd" id="2_or86s"]
+[ext_resource type="Script" path="res://scripts/piece_manager.gd" id="2_os2cu"]
+[ext_resource type="Script" path="res://scripts/Label.gd" id="3_8t67a"]
+[ext_resource type="Texture2D" uid="uid://dh4mcfyrgtiuv" path="res://assets/block_texture.png" id="4_tbjae"]
+
+[sub_resource type="GDScript" id="GDScript_kuf7o"]
+script/source = "extends Node
+"
+
+[node name="Main" type="Node2D"]
+script = SubResource("GDScript_kuf7o")
+
+[node name="Background" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0, 0, 0.0117647, 0.627451)
+position = Vector2(562, 372)
+scale = Vector2(200, 200)
+texture = ExtResource("4_tbjae")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(30, 30)
+transform = Transform2D(30, 0, 0, 30, 0, 0)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.129412, 0.14902, 0.180392, 1)
+
+[node name="Game Grid" type="Node2D" parent="."]
+position = Vector2(64, 200)
+scale = Vector2(4, 4)
+script = ExtResource("2_or86s")
+
+[node name="Piece Area" type="Node2D" parent="Game Grid"]
+z_index = 1
+position = Vector2(8, 164)
+scale = Vector2(0.666667, 0.666667)
+script = ExtResource("2_os2cu")
+
+[node name="Score" type="Label" parent="Game Grid"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 32.0
+offset_top = -40.0
+offset_right = 83.0
+offset_bottom = -17.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("3_8t67a")
+
+[node name="Node2D" type="Node2D" parent="Label"]

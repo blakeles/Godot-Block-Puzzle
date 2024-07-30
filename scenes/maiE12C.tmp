@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://byupr4b88pjmc"]
+
+[ext_resource type="Script" path="res://scripts/board_manager.gd" id="2_or86s"]
+[ext_resource type="Script" path="res://scripts/piece_spawner.gd" id="2_os2cu"]
+
+[sub_resource type="GDScript" id="GDScript_kuf7o"]
+script/source = "extends Node
+"
+
+[node name="Main" type="Node2D"]
+script = SubResource("GDScript_kuf7o")
+
+[node name="Game Grid" type="Node2D" parent="."]
+position = Vector2(450, 75)
+scale = Vector2(4.5, 4.5)
+script = ExtResource("2_or86s")
+
+[node name="Piece Area" type="Node2D" parent="Game Grid"]
+z_index = 1
+position = Vector2(-55.5556, 0)
+scale = Vector2(0.666667, 0.666667)
+script = ExtResource("2_os2cu")
