@@ -7,7 +7,7 @@ func _ready():
 	# Load highscore from file and display it
 	if not FileAccess.file_exists("user://score.save"): 
 		labelText = ""
-		FileAccess.open("user://block.save", FileAccess.WRITE).store_string("0")
+		FileAccess.open("user://score.save", FileAccess.WRITE).store_string("0")
 	else:
 		labelText = "HIGHSCORE\n" + FileAccess.open("user://score.save", FileAccess.READ).get_as_text()
 		
