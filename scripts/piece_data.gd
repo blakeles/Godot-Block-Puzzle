@@ -51,6 +51,7 @@ var chosenPiece : Array # The position of each block in the piece
 var returnPosition : Vector2 # The global position that the piece should be returned to when it is released
 var dragging : bool = false # Whether the piece is currently being dragged
 var draggingPosition : Vector2 # Which block in the piece is being dragged
+var forShow : bool = false # ONLY CHANGE IF PIECE IS ON MAIN SCREEN
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -72,25 +73,31 @@ stop_drag
 - Sets the piece to its default state
 '''
 func start_drag(blockPosition : Vector2):
-	dragging = true
-	draggingPosition = blockPosition
+	if !forShow:
+		dragging = true
+		draggingPosition = blockPosition
+		z_index = 2
 func stop_drag(unclickPosition : Vector2):
-	if await get_parent().handle_place_piece({'unclick': unclickPosition, 'blockSelected': draggingPosition/BLOCK_SIZE, 'piece': self}):
-		queue_free() # Delete piece from scene if it has been placed
-	else:
-		dragging = false
-		global_position = returnPosition
-		scale = Vector2(1, 1)
-		
-	
+	if !forShow:
+		if await get_parent().handle_place_piece({'unclick': unclickPosition, 'blockSelected': draggingPosition/BLOCK_SIZE, 'piece': self}):
+			queue_free() # Delete piece from scene if it has been placed
+		else:
+			dragging = false
+			global_position = returnPosition
+			scale = Vector2(1, 1)
+			z_index = 0
+			
 '''
 spawn
 - Spawn piece into scene
 - Colour of piece is determined by the first block
 '''
-func spawn(spawnedPosition : Vector2):
+func spawn(spawnedPosition : Vector2, menu : bool):
 	returnPosition = spawnedPosition
 	chosenPiece = PIECE_TYPES.pick_random()
+	
+	if !menu: forShow = false
+	else: forShow = true
 	
 	for block in chosenPiece:
 		var blockInstance = blockScene.instantiate()

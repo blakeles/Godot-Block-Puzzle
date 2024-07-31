@@ -40,7 +40,7 @@ func spawn_pieces():
 		pieceInstance.position = Vector2(i,0)*68 # 64 + 4 px gap
 		piecesAvailable.append(pieceInstance)
 		add_child(pieceInstance)
-		pieceInstance.spawn(pieceInstance.global_position)
+		pieceInstance.spawn(pieceInstance.global_position, false)
 		
 '''
 get_pieces

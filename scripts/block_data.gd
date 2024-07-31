@@ -14,6 +14,10 @@ const BLOCK_COLOURS : Array[String] = [ # Holds all possible colours a piece can
 	"pink",
 ]
 
+const VERTICES_BLOCK : PackedVector2Array = [Vector2i(-7,-7), Vector2i(7,-7), Vector2i(7,7), Vector2i(-7,7)]
+const VERTICES_PIECE : PackedVector2Array = [Vector2i(-8,-8), Vector2i(8,-8), Vector2i(8,8), Vector2i(-8,8)]
+
+
 var placed : bool = false # Whether this block is placed on the board or not
 var active : bool = false # Whether this block is part of a piece or not
 var hovered : bool = false # Whether this block is currently being hovered over
@@ -36,11 +40,16 @@ func _input(event):
 '''
 activate
 - Add block to the game (either as a placed block on the board, or as part of a piece)
+- Collision polygon depends on whether the block is in a piece or not
 - Oftentimes to choose a random colour I simply set colour to "black"
 '''
 func activate(colour : String, isPiece : bool):
 	active = isPiece
 	placed = !isPiece
+	
+	# Set collision polygon vertices
+	if isPiece: $'CollisionPolygon2D'.polygon = VERTICES_PIECE
+	else: $'CollisionPolygon2D'.polygon = VERTICES_BLOCK
 	
 	if BLOCK_COLOURS.has(colour):
 		chosenColour = colour
@@ -49,7 +58,7 @@ func activate(colour : String, isPiece : bool):
 		chosenColour = BLOCK_COLOURS.pick_random()
 		$'Sprite2D'.self_modulate = chosenColour
 	
-	$'AnimationPlayer'.play("place")
+	if !isPiece: $'AnimationPlayer'.play("place")
 
 '''
 set_empty
